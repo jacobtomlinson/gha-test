@@ -1,5 +1,8 @@
 name: Test
 
+env:
+  action_repo: ajilraju/helloworld-actions@v1.3
+
 on:
   push:
     branches: [ master ]
@@ -14,4 +17,4 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Say Hello World
-      uses: ajilraju/helloworld-actions@v1.3
+      uses: ${{ env.action_repo }}
