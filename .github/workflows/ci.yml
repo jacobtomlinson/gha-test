@@ -1,0 +1,43 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: ["windows-latest", "ubuntu-latest", "macos-latest"]
+        python-version: ["3.6", "3.7", "3.8"]
+        experimental: [false]
+        coverage: [false]
+        include:
+          - os: "macos-latest"
+            experimental: true
+          - os: "ubuntu-latest"
+            python-version: "3.8"
+            coverage: true
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install deps
+        shell: bash -l {0}
+        run: pip install requests
+
+      - name: Run tests
+        shell: bash -l {0}
+        run: python -c 'import requests; print(requests.get("http://example.com"))'
+
+      - name: Coverage
+        shell: bash -l {0}
+        if: ${{ matrix.coverage }}
+        run: echo "Coverage"
