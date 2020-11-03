@@ -31,5 +31,5 @@ jobs:
 
       - name: Coverage
         shell: bash -l {0}
-        if: ${{ matrix.os == 'macos' &&  matrix.python-version == '3.8' }}
+        if: ${{ matrix.os == 'ubuntu-latest' &&  matrix.python-version == '3.8' }}
         run: echo "Coverage"
