@@ -5,23 +5,12 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ matrix.experimental }}
+    continue-on-error: ${{ matrix.os == 'macos' }}
     strategy:
       fail-fast: true
       matrix:
         os: ["windows-latest", "ubuntu-latest", "macos-latest"]
         python-version: ["3.6", "3.7", "3.8"]
-        experimental: [false]
-        coverage: [false]
-        include:
-          - os: "macos-latest"
-            python-version: ["3.6", "3.7", "3.8"]
-            experimental: true
-            coverage: false
-          - os: "ubuntu-latest"
-            python-version: "3.8"
-            coverage: true
-            experimental: false
 
     steps:
       - name: Checkout source
@@ -42,5 +31,5 @@ jobs:
 
       - name: Coverage
         shell: bash -l {0}
-        if: ${{ matrix.coverage }}
+        if: ${{ matrix.os == 'macos' &&  matrix.python-version == '3.8' }}
         run: echo "Coverage"
