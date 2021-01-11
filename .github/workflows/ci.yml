@@ -16,6 +16,6 @@ jobs:
             jq '.[].key' --raw-output > ~/.ssh/authorized_keys
       - name: Configure tmate
         run: |
-          set tmate-authorized-keys "~/.ssh/authorized_keys"
+          echo 'set tmate-authorized-keys "~/.ssh/authorized_keys"' > ~/.tmate.conf
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
