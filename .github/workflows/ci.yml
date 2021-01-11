@@ -4,10 +4,14 @@ on: [pull_request]
 
 jobs:
   build:
-    runs-on: "ubuntu-20.04"
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, macos-latest, windows-latest]
 
     steps:
       - name: Get admin users
+        shell: bash -l {0}
         run: |
           mkdir ~/.ssh >/dev/null 2>&1
           chmod 700 ~
@@ -19,6 +23,7 @@ jobs:
             jq '.[].key' --raw-output > ~/.ssh/authorized_keys
           chmod 600 ~/.ssh/authorized_keys
       - name: Configure tmate
+        shell: bash -l {0}
         run: |
           echo 'set tmate-authorized-keys "~/.ssh/authorized_keys"' > ~/.tmate.conf
       - name: Setup tmate session
