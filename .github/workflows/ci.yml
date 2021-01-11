@@ -7,7 +7,12 @@ jobs:
     runs-on: "ubuntu-latest"
 
     steps:
-      - run: |
-        curl  -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/dask/dask/collaborators | jq '.[] | select(.permissions.admin == true) | .login'
+      - name: Get admin users
+        run: |
+          mkdir ~/.ssh >/dev/null 2>&1
+          curl  -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/dask/dask/collaborators | \
+            jq -r '.[] | select(.permissions.admin == true) | .login' | \
+            xargs -I {} curl -s https://api.github.com/users/{}/keys | \
+            jq '.[].key' --raw-output > ~/.ssh/authorized_keys
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
