@@ -1,4 +1,4 @@
-name: Thank Contributor
+name: Thank Contributor!
 on: pull_request_target
 
 jobs:
