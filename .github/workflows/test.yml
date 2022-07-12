@@ -16,6 +16,6 @@ jobs:
           message: |
             Binder info
             Repo: https://github.com/${{github.repository}}
-            Branch: ${{github.ref}}
+            Branch: ${{github.ref_name}}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           comment_includes: 'Binder info'
