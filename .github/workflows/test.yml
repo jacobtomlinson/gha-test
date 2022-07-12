@@ -1,20 +1,16 @@
-name: Test
+on: pull_request
 
-env:
-  action_repo: ajilraju/helloworld-actions@v1.3
-
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-    
 jobs:
-  build:
+  example_comment_pr:
     runs-on: ubuntu-latest
+    name: An example job to comment a PR
     steps:
-    
-    - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Say Hello World
-      uses: ${{ env.action_repo }}
+      - name: Comment PR
+        uses: thollander/actions-comment-pull-request@v1
+        with:
+          message: |
+            Hello world ! :wave:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
