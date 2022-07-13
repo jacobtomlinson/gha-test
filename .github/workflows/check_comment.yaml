@@ -1,4 +1,4 @@
-name: Comment on check
+name: Commentt on check
 on: 
   check_run:
     types: [completed]
