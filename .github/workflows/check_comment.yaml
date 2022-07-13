@@ -10,6 +10,7 @@ jobs:
   check_comment:
     runs-on: ubuntu-latest
     steps:
+      - run: echo "${{github.event}}"
       - name: Comment PR
         uses: thollander/actions-comment-pull-request@v1
         with:
