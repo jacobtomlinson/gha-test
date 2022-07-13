@@ -1,7 +1,10 @@
 name: Commend on check
-on: 
-  check_run:
-    types: [completed]
+on:
+  workflow_run:
+    workflows: [Thank Contributor]
+    types:
+      - completed
+
 
 jobs:
   check_comment:
@@ -14,3 +17,4 @@ jobs:
             Check has finished!
           comment_includes: "Check has finished"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
