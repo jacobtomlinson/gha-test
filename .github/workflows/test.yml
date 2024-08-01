@@ -1,14 +1,15 @@
-name: Thank Contributor
+name: Test bash retry
 on: pull_request_target
 
 jobs:
-  thank_contributor:
+  bashretry:
     runs-on: ubuntu-latest
+    timeout-minutes: 1
     steps:
-      - name: Comment PR
-        uses: thollander/actions-comment-pull-request@v1
-        with:
-          message: |
-            Thank you for your contribution. We aim to review it within 48 hours!
-          comment_includes: "Thank you"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Retry
+        run: |
+          until false; do
+            false && break
+            echo "Retrying..."
+            sleep 1
+          done
