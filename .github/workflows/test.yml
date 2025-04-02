@@ -1,4 +1,4 @@
-name: Test bash retry
+name: Test neutral return
 on: push
 
 jobs:
@@ -6,10 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 1
     steps:
-      - name: Retry
+      - name: Check something but exit neutrally
         run: |
-          until false; do
-            false && break
-            echo "Retrying..."
-            sleep 1
-          done
+          echo "Nothing to do, exiting with neutral code"
+          exit 78
