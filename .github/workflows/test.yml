@@ -1,12 +1,11 @@
-name: Test neutral return
+name: ollama
 on: push
-
 jobs:
-  bashretry:
+  ollama:
     runs-on: ubuntu-latest
-    timeout-minutes: 1
     steps:
-      - name: Check something but exit neutrally
-        run: |
-          echo "Nothing to do, exiting with neutral code"
-          exit 78
+      - name: Setup Ollama
+        uses: ai-action/setup-ollama@v1
+
+      - name: Run LLM
+        run: ollama run llama3.2 'Explain the basics of machine learning.'
