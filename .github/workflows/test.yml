@@ -8,6 +8,5 @@ jobs:
         uses: ai-action/ollama-action@v1.1.0
         with:
           model: llama3.2:3b
-          version: 0.9.5
           prompt: |
             How much wood would a woodchuck chuck if a woodchuck could chuck wood?
